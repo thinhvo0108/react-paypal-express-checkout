@@ -60,6 +60,7 @@ class PaypalButton extends React.Component {
             ppbtn = <paypal.Button.react
                 env={this.props.env}
                 client={this.props.client}
+                style={this.props.style}
                 payment={payment}
                 commit={true}
                 onAuthorize={onAuthorize}
@@ -73,7 +74,8 @@ class PaypalButton extends React.Component {
 PaypalButton.propTypes = {
     currency: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,
-    client: PropTypes.object.isRequired
+    client: PropTypes.object.isRequired,
+    style: PropTypes.object
 }
 
 PaypalButton.defaultProps = {
