@@ -83,7 +83,7 @@ PaypalButton.propTypes = {
 
 PaypalButton.defaultProps = {
     env: 'sandbox',
-    noShipping: 0,
+    noShipping: 1,
     onSuccess: (payment) => {
         console.log('The payment was succeeded!', payment);
     },
