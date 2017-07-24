@@ -131,6 +131,8 @@
                 var payment = function payment() {
                     return paypal.rest.payment.create(_this2.props.env, _this2.props.client, {
                         transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
+                    }, {
+                        input_fields: { no_shipping: _this2.props.noShipping }
                     });
                 };
 
@@ -177,6 +179,7 @@
 
     PaypalButton.defaultProps = {
         env: 'sandbox',
+        noShipping: 1,
         onSuccess: function onSuccess(payment) {
             console.log('The payment was succeeded!', payment);
         },
