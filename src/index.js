@@ -41,7 +41,7 @@ class PaypalButton extends React.Component {
                 ]
             }, {
                 input_fields: {
-                    no_shipping: 1
+                    no_shipping: this.props.shipping
                 }
             });
         }
@@ -60,14 +60,13 @@ class PaypalButton extends React.Component {
         }
 
         let ppbtn = '';
-        let noShipping = 1;
         if (this.state.showButton) {
             ppbtn = <paypal.Button.react
                 env={this.props.env}
                 client={this.props.client}
                 payment={payment}
                 commit={true}
-                noShipping={noShipping}
+                shipping={this.props.shipping}
                 onAuthorize={onAuthorize}
                 onCancel={this.props.onCancel}
             />
@@ -84,7 +83,7 @@ PaypalButton.propTypes = {
 
 PaypalButton.defaultProps = {
     env: 'sandbox',
-    noShipping: 1,
+    shipping: 0,
     onSuccess: (payment) => {
         console.log('The payment was succeeded!', payment);
     },
