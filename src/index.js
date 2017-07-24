@@ -39,6 +39,10 @@ class PaypalButton extends React.Component {
                 transactions: [
                     { amount: { total: this.props.total, currency: this.props.currency } }
                 ]
+            }, {
+                input_fields: {
+                    no_shipping: this.props.noShipping
+                }
             });
         }
 
@@ -62,6 +66,7 @@ class PaypalButton extends React.Component {
                 client={this.props.client}
                 payment={payment}
                 commit={true}
+                noShipping={this.props.noShipping}
                 onAuthorize={onAuthorize}
                 onCancel={this.props.onCancel}
             />
@@ -78,6 +83,7 @@ PaypalButton.propTypes = {
 
 PaypalButton.defaultProps = {
     env: 'sandbox',
+    noShipping: 0,
     onSuccess: (payment) => {
         console.log('The payment was succeeded!', payment);
     },
