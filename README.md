@@ -87,6 +87,7 @@ export default class MyApp extends React.Component {
 - `onError: Callback function (happens when Paypal's main script cannot be loaded)` - If not set, this will take the above function (in example) as a default return
 - `onSuccess: Callback function (happens after payment has been finished successfully)` - If not set, this will take the above function (in example) as a default return
 - `onCancel: Callback function (happens when users press "cancel" or close Paypal's popup)` - If not set, this will take the above function (in example) as a default return
+- `style: (optional) change appearance of Paypal button based on their document: size, color, shape, label` - https://developer.paypal.com/docs/integration/direct/express-checkout/integration-jsv4/customize-button/
 
 ## Sample Returned Data
 
