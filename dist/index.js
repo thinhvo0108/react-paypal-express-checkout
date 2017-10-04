@@ -132,7 +132,9 @@
                     return paypal.rest.payment.create(_this2.props.env, _this2.props.client, {
                         transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
                     }, {
-                        input_fields: { no_shipping: _this2.props.shipping }
+                        input_fields: {
+                            no_shipping: _this2.props.shipping
+                        }
                     });
                 };
 
@@ -154,8 +156,10 @@
                     ppbtn = _react2.default.createElement(paypal.Button.react, {
                         env: this.props.env,
                         client: this.props.client,
+                        style: this.props.style,
                         payment: payment,
                         commit: true,
+                        shipping: this.props.shipping,
                         onAuthorize: onAuthorize,
                         onCancel: this.props.onCancel
                     });
@@ -174,7 +178,8 @@
     PaypalButton.propTypes = {
         currency: _propTypes2.default.string.isRequired,
         total: _propTypes2.default.number.isRequired,
-        client: _propTypes2.default.object.isRequired
+        client: _propTypes2.default.object.isRequired,
+        style: _propTypes2.default.object
     };
 
     PaypalButton.defaultProps = {
