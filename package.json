@@ -1,6 +1,6 @@
 {
     "name": "react-paypal-express-checkout",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "React component that renders Paypal's express check out button",
     "repository": {
         "type": "git",
