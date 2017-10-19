@@ -84,6 +84,8 @@ export default class MyApp extends React.Component {
 - `currency: String ("USD", "JPY" etc.)` - MUST set, please see the above example
 - `total: Number (1.00 or 1 - depends on currency)` - MUST set, please see the above example
 - `shipping: Number (1 or 2 or 3)` - Ability to change if a shipping address is included in checkout, 0 is default and means optional, 1 is no shipping address, 2 is shipping is required
+- `custom: String` - You can put anything here, It's a custom field, and can be used as you like (see: https://developer.paypal.com/docs/integration/direct/payments/authorize-and-capture-payments/)
+- `invoice_number: String` - You will put the invoice number from your system ... if you pay an invoice with it. (see: https://developer.paypal.com/docs/integration/direct/payments/authorize-and-capture-payments/)
 - `onError: Callback function (happens when Paypal's main script cannot be loaded)` - If not set, this will take the above function (in example) as a default return
 - `onSuccess: Callback function (happens after payment has been finished successfully)` - If not set, this will take the above function (in example) as a default return
 - `onCancel: Callback function (happens when users press "cancel" or close Paypal's popup)` - If not set, this will take the above function (in example) as a default return
