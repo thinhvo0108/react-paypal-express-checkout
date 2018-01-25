@@ -133,13 +133,15 @@
                         transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
                     }, {
                         input_fields: {
+                            // any values other than null, and the address is not returned after payment execution.
                             no_shipping: _this2.props.shipping
                         }
                     });
                 };
 
                 var onAuthorize = function onAuthorize(data, actions) {
-                    return actions.payment.execute().then(function () {
+                    return actions.payment.execute().then(function (payment_data) {
+                        console.log('payment_data: ' + JSON.stringify(payment_data, null, 1));
                         var payment = Object.assign({}, _this2.props.payment);
                         payment.paid = true;
                         payment.cancelled = false;
@@ -147,6 +149,9 @@
                         payment.paymentID = data.paymentID;
                         payment.paymentToken = data.paymentToken;
                         payment.returnUrl = data.returnUrl;
+                        // getting buyer's shipping address and email
+                        payment.address = payment_data.payer.payer_info.shipping_address;
+                        payment.email = payment_data.payer.payer_info.email;
                         _this2.props.onSuccess(payment);
                     });
                 };
@@ -159,9 +164,11 @@
                         style: this.props.style,
                         payment: payment,
                         commit: true,
-                        shipping: this.props.shipping,
                         onAuthorize: onAuthorize,
                         onCancel: this.props.onCancel
+
+                        // "Error: Unrecognized prop: shipping" was caused by the next line
+                        // shipping={this.props.shipping}
                     });
                 }
                 return _react2.default.createElement(
@@ -184,7 +191,8 @@
 
     PaypalButton.defaultProps = {
         env: 'sandbox',
-        shipping: 0,
+        // null means buyer address is returned in the payment execution response
+        shipping: null,
         onSuccess: function onSuccess(payment) {
             console.log('The payment was succeeded!', payment);
         },
