@@ -141,7 +141,7 @@
 
                 var onAuthorize = function onAuthorize(data, actions) {
                     return actions.payment.execute().then(function (payment_data) {
-                        console.log('payment_data: ' + JSON.stringify(payment_data, null, 1));
+                        // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
                         var payment = Object.assign({}, _this2.props.payment);
                         payment.paid = true;
                         payment.cancelled = false;

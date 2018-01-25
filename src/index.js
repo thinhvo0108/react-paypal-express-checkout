@@ -49,7 +49,7 @@ class PaypalButton extends React.Component {
 
         const onAuthorize = (data, actions) => {
             return actions.payment.execute().then((payment_data) => {
-                console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
+                // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
                 const payment = Object.assign({}, this.props.payment);
                 payment.paid = true;
                 payment.cancelled = false;
