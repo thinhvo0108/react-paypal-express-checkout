@@ -41,13 +41,15 @@ class PaypalButton extends React.Component {
                 ]
             }, {
                 input_fields: {
+                    // any values other than null, and the address is not returned after payment execution.
                     no_shipping: this.props.shipping
                 }
             });
         }
 
         const onAuthorize = (data, actions) => {
-            return actions.payment.execute().then(() => {
+            return actions.payment.execute().then((payment_data) => {
+                // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
                 const payment = Object.assign({}, this.props.payment);
                 payment.paid = true;
                 payment.cancelled = false;
@@ -55,6 +57,9 @@ class PaypalButton extends React.Component {
                 payment.paymentID = data.paymentID;
                 payment.paymentToken = data.paymentToken;
                 payment.returnUrl = data.returnUrl;
+                // getting buyer's shipping address and email
+                payment.address = payment_data.payer.payer_info.shipping_address;
+                payment.email = payment_data.payer.payer_info.email;
                 this.props.onSuccess(payment);
             })
         }
@@ -67,9 +72,11 @@ class PaypalButton extends React.Component {
                 style={this.props.style}
                 payment={payment}
                 commit={true}
-                shipping={this.props.shipping}
                 onAuthorize={onAuthorize}
                 onCancel={this.props.onCancel}
+
+                // "Error: Unrecognized prop: shipping" was caused by the next line
+                // shipping={this.props.shipping}
             />
         }
         return <div>{ppbtn}</div>;
@@ -85,7 +92,8 @@ PaypalButton.propTypes = {
 
 PaypalButton.defaultProps = {
     env: 'sandbox',
-    shipping: 0,
+    // null means buyer address is returned in the payment execution response
+    shipping: null,
     onSuccess: (payment) => {
         console.log('The payment was succeeded!', payment);
     },
