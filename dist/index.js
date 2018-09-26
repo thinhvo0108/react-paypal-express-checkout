@@ -129,9 +129,9 @@
                 var _this2 = this;
 
                 var payment = function payment() {
-                    return paypal.rest.payment.create(_this2.props.env, _this2.props.client, {
+                    return paypal.rest.payment.create(_this2.props.env, _this2.props.client, Object.assign({
                         transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
-                    }, {
+                    }, _this2.props.paymentOptions), {
                         input_fields: {
                             // any values other than null, and the address is not returned after payment execution.
                             no_shipping: _this2.props.shipping
@@ -190,6 +190,7 @@
     };
 
     PaypalButton.defaultProps = {
+        paymentOptions: {},
         env: 'sandbox',
         // null means buyer address is returned in the payment execution response
         shipping: null,
