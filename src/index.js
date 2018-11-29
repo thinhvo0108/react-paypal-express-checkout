@@ -6,8 +6,10 @@ import PropTypes from 'prop-types';
 class PaypalButton extends React.Component {
     constructor(props) {
         super(props);
-        window.React = React;
-        window.ReactDOM = ReactDOM;
+        if (typeof window !== `undefined`) {
+            window.React = React;
+            window.ReactDOM = ReactDOM;
+        }
         this.state = {
             showButton: false
         }
