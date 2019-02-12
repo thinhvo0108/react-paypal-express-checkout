@@ -130,7 +130,7 @@
 
                 var payment = function payment() {
                     return paypal.rest.payment.create(_this2.props.env, _this2.props.client, Object.assign({
-                        transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
+                        transactions: [Object.assign(_this2.props.transactionOptions, { amount: { total: _this2.props.total, currency: _this2.props.currency } })]
                     }, _this2.props.paymentOptions), {
                         input_fields: {
                             // any values other than null, and the address is not returned after payment execution.
@@ -185,6 +185,7 @@
     PaypalButton.propTypes = {
         currency: _propTypes2.default.string.isRequired,
         total: _propTypes2.default.number.isRequired,
+        transactionOptions: _propTypes2.default.object,
         client: _propTypes2.default.object.isRequired,
         style: _propTypes2.default.object
     };
@@ -192,6 +193,7 @@
     PaypalButton.defaultProps = {
         paymentOptions: {},
         env: 'sandbox',
+        transactionOptions: {},
         // null means buyer address is returned in the payment execution response
         shipping: null,
         onSuccess: function onSuccess(payment) {

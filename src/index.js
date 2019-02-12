@@ -37,7 +37,10 @@ class PaypalButton extends React.Component {
         let payment = () => {
             return paypal.rest.payment.create(this.props.env, this.props.client, Object.assign({
                 transactions: [
-                    { amount: { total: this.props.total, currency: this.props.currency } }
+                    Object.assign(
+                        this.props.transactionOptions,
+                        { amount: { total: this.props.total, currency: this.props.currency } }
+                    )
                 ]
             }, this.props.paymentOptions), {
                 input_fields: {
@@ -86,6 +89,7 @@ class PaypalButton extends React.Component {
 PaypalButton.propTypes = {
     currency: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,
+    transactionOptions: PropTypes.object,
     client: PropTypes.object.isRequired,
     style: PropTypes.object
 }
@@ -93,6 +97,7 @@ PaypalButton.propTypes = {
 PaypalButton.defaultProps = {
     paymentOptions: {},
     env: 'sandbox',
+    transactionOptions: {},
     // null means buyer address is returned in the payment execution response
     shipping: null,
     onSuccess: (payment) => {
