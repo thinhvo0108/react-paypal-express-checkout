@@ -96,14 +96,11 @@
         }
 
         _createClass(PaypalButton, [{
-            key: 'componentWillReceiveProps',
-            value: function componentWillReceiveProps(_ref) {
-                var isScriptLoaded = _ref.isScriptLoaded,
-                    isScriptLoadSucceed = _ref.isScriptLoadSucceed;
-
+            key: 'componentDidUpdate',
+            value: function componentDidUpdate(prevProps) {
                 if (!this.state.show) {
-                    if (isScriptLoaded && !this.props.isScriptLoaded) {
-                        if (isScriptLoadSucceed) {
+                    if (this.props.isScriptLoaded && !prevProps.isScriptLoaded) {
+                        if (this.props.isScriptLoadSucceed) {
                             this.setState({ showButton: true });
                         } else {
                             console.log('Cannot load Paypal script!');
@@ -140,8 +137,7 @@
                 };
 
                 var onAuthorize = function onAuthorize(data, actions) {
-                    return actions.payment.execute().then(function (payment_data) {
-                        // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
+                    return actions.payment.execute().then(function (paymentData) {
                         var payment = Object.assign({}, _this2.props.payment);
                         payment.paid = true;
                         payment.cancelled = false;
@@ -150,8 +146,8 @@
                         payment.paymentToken = data.paymentToken;
                         payment.returnUrl = data.returnUrl;
                         // getting buyer's shipping address and email
-                        payment.address = payment_data.payer.payer_info.shipping_address;
-                        payment.email = payment_data.payer.payer_info.email;
+                        payment.address = paymentData.payer.payer_info.shipping_address;
+                        payment.email = paymentData.payer.payer_info.email;
                         _this2.props.onSuccess(payment);
                     });
                 };

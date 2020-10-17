@@ -13,10 +13,10 @@ class PaypalButton extends React.Component {
         }
     }
 
-    componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+    componentDidUpdate(prevProps) {
         if (!this.state.show) {
-            if (isScriptLoaded && !this.props.isScriptLoaded) {
-                if (isScriptLoadSucceed) {
+            if (this.props.isScriptLoaded && !prevProps.isScriptLoaded) {
+                if (this.props.isScriptLoadSucceed) {
                     this.setState({ showButton: true });
                 } else {
                     console.log('Cannot load Paypal script!');
