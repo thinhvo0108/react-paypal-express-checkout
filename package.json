@@ -32,7 +32,7 @@
         "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
     },
     "scripts": {
-        "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./dist",
+        "prepare": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
         "lint": "eslint ./src",
         "lintfix": "eslint ./src --fix",
         "testonly": "mocha $npm_package_options_mocha",
@@ -56,8 +56,8 @@
         "jsdom": "^8.1.0",
         "mocha": "^2.4.5",
         "nodemon": "^1.9.1",
+        "react": "^16.14.0",
         "react-addons-test-utils": "^15.0.0",
-        "react": "^16.0.0",
         "react-dom": "^16.0.0",
         "sinon": "^1.17.3"
     },

@@ -13,10 +13,10 @@ class PaypalButton extends React.Component {
         }
     }
 
-    componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+    componentDidUpdate(prevProps) {
         if (!this.state.show) {
-            if (isScriptLoaded && !this.props.isScriptLoaded) {
-                if (isScriptLoadSucceed) {
+            if (this.props.isScriptLoaded && !prevProps.isScriptLoaded) {
+                if (this.props.isScriptLoadSucceed) {
                     this.setState({ showButton: true });
                 } else {
                     console.log('Cannot load Paypal script!');
@@ -48,8 +48,7 @@ class PaypalButton extends React.Component {
         }
 
         const onAuthorize = (data, actions) => {
-            return actions.payment.execute().then((payment_data) => {
-                // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
+            return actions.payment.execute().then((paymentData) => {
                 const payment = Object.assign({}, this.props.payment);
                 payment.paid = true;
                 payment.cancelled = false;
@@ -58,8 +57,8 @@ class PaypalButton extends React.Component {
                 payment.paymentToken = data.paymentToken;
                 payment.returnUrl = data.returnUrl;
                 // getting buyer's shipping address and email
-                payment.address = payment_data.payer.payer_info.shipping_address;
-                payment.email = payment_data.payer.payer_info.email;
+                payment.address = paymentData.payer.payer_info.shipping_address;
+                payment.email = paymentData.payer.payer_info.email;
                 this.props.onSuccess(payment);
             })
         }
